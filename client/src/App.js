@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route, Navigate, Link } from 'react-router-dom'
-import Invoices from './routes/Invoices';
+import Issues from './routes/Issues';
 import Expenses from './routes/Expenses';
 import Auth from './routes/Auth';
 
@@ -10,7 +10,7 @@ export default function App() {
         <h1>Online Debate Network</h1>
         <nav>
         <Link to="/">Home</Link> |{" "}
-        <Link to="/invoices">Invoices</Link> |{" "}
+        <Link to="/issues">Issues</Link> |{" "}
         <Link to="/expenses">Expenses</Link> |{" "}
         </nav>
         <Routes>
@@ -19,8 +19,8 @@ export default function App() {
                 element={<Auth />}
             />
             <Route 
-                path='/invoices'
-                element={<Invoices />}
+                path='/issues'
+                element={<Issues />}
             />
             <Route 
                 path='/expenses'

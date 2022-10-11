@@ -6,15 +6,17 @@ import {
     Route,
 } from "react-router-dom";
 import App from "./App";
-import Expenses from "./routes/Expenses";
-import Invoices from "./routes/Invoices";
+
 import UserProvider from "./context/UserProvider";
+import IssueProvider from "./context/IssueProvider";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
-        <UserProvider>
-            <App />
-        </UserProvider>
+        <IssueProvider>
+            <UserProvider>
+                <App />
+            </UserProvider>
+        </IssueProvider>
     </BrowserRouter>
 );

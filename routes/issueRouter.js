@@ -141,11 +141,12 @@ issueRouter.put('/upvote/:issueId', (req, res, next)=>{
                 res.status(500)
                 return next(err)
             }
-            console.log(issue.likedBy)
+            // console.log(issue.likedBy)
             // console.log(req.auth._id.toString())
             const userIdMatch = (element) => element == req.auth._id
-            console.log(issue.likedBy.findIndex(userIdMatch))
-            if (issue.likedBy.findIndex(userIdMatch) > -1) {
+            const userPreviouslyLiked = issue.likedBy.findIndex(userIdMatch) > -1
+            // console.log(issue.likedBy.findIndex(userIdMatch))
+            if (userPreviouslyLiked) {
                 Issue.updateOne(
                     { _id: req.params.issueId },
                     { $pull: {likedBy: req.auth._id}},
@@ -197,7 +198,8 @@ issueRouter.put('/downvote/:issueId', (req, res, next) => {
                 return next(err)
             }
             const userIdMatch = (element) => element == req.auth._id
-            if (issue.dislikedBy.findIndex(userIdMatch) > -1) {
+            const userPreviouslyDisliked = issue.dislikedBy.findIndex(userIdMatch) > -1
+            if (userPreviouslyDisliked) {
                 Issue.updateOne(
                     { _id: req.params.issueId },
                     { $pull: {dislikedBy: req.auth._id}},
