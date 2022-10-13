@@ -5,7 +5,7 @@ import PostIssueForm from "../components/PostIssueForm";
 
 export default function Issues() {
     
-  const { issues } = React.useContext(IssueContext)
+  const { issues, postIssue } = React.useContext(IssueContext)
   
 
 
@@ -22,7 +22,7 @@ export default function Issues() {
   return (
       <main style={{ padding: "1rem 0" }}>
         <h2>Issues</h2>
-        <PostIssueForm />
+        <PostIssueForm postIssue={postIssue} />
         {issueDisplay}
       </main>
     );

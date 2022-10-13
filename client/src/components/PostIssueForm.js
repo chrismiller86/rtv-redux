@@ -1,13 +1,14 @@
 import React from "react";
 
+const initInputs = {
+    title: "",
+    description: ""
+}
+
 export default function PostIssueForm(props) {
 
-    const initInputs = {
-        title: "",
-        description: ""
-    }
-
     const [inputs, setInputs] = React.useState(initInputs)
+    const { postIssue } = props
 
     function handleChange(e) {
         const { name, value } = e.target
@@ -17,8 +18,15 @@ export default function PostIssueForm(props) {
         }))
     }
 
+    function handleSubmit(e) {
+        e.preventDefault()
+        postIssue(inputs)
+        setInputs(initInputs)
+    }
+
+
     return(
-        <form>
+        <form onSubmit={handleSubmit}>
             <input
                 name="title"
                 value={inputs.title} 

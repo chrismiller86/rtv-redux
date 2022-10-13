@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from 'axios'
+import { UserContext } from "./UserProvider";
 
 export const IssueContext = React.createContext()
 
@@ -12,6 +13,8 @@ userAxios.interceptors.request.use(config => {
 })
 
 export default function IssueProvider(props){
+
+    const user = JSON.parse(localStorage.getItem("user"))
 
     const [issues, setIssues] = React.useState([])
 
@@ -55,8 +58,24 @@ export default function IssueProvider(props){
             .catch(err => console.log(err))
     }
 
+    // Could change behavior to appear at the top until refresh or next getIssues
     function postIssue(issueObject) {
-        userAxios
+        userAxios.post('/api/issues', issueObject)
+            .then(res => getIssues())
+            .catch(err => console.log(err))
+    }
+
+    const [userIssues, setUserIssues] = React.useState([])
+
+    function getUserIssues(userId) {
+        userAxios.get(`/api/issues/${user._id}`)
+        .then(res => setUserIssues(res.data))
+        .catch(err => console.log(err))
+    }
+    function deleteIssue(id, userId) {
+        userAxios.delete(`/api/issues/${id}`)
+            .then(res => getUserIssues(userId))
+            .catch(err => console.log(err))
     }
 
     
@@ -66,7 +85,12 @@ export default function IssueProvider(props){
                 issues,
                 handleUpvote,
                 handleDownvote,
-                getComments
+                getComments,
+                deleteIssue,
+                getUserIssues,
+                deleteIssue,
+                postIssue,
+                userIssues
             }}
         >
             {props.children}
