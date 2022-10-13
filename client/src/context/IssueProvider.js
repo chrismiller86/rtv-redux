@@ -23,7 +23,9 @@ export default function IssueProvider(props){
             .catch(err => console.log(err))
     }    
 
-    
+
+
+    // does this need a dependency to fix auth to issue problem?    
     React.useEffect(()=> {
         getIssues()
     }, [])
@@ -51,6 +53,10 @@ export default function IssueProvider(props){
         userAxios.get(`/api/issues/getcomments/${id}`)
             .then(res => console.log('hi'))
             .catch(err => console.log(err))
+    }
+
+    function postIssue(issueObject) {
+        userAxios
     }
 
     

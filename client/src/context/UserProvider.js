@@ -50,6 +50,12 @@ export default function UserProvider(props){
 
     function logout(){
         // remove items from local storage
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
+        setUserState({
+            user: {},
+            token: ""
+        })
         // reset user State
     }
 

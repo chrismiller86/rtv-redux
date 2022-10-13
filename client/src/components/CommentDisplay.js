@@ -25,8 +25,8 @@ export default function CommentDisplay(props) {
     }, [])
 
 
-    const commentDisplay = comments.map(comment => (
-        <div key={issueId}>
+    const commentDisplay = comments.map((comment, index) => (
+        <div key={index}>
             <p>
                 {comment.commentText}
             </p>

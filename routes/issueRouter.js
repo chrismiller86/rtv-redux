@@ -15,7 +15,16 @@ issueRouter.get('/', (req, res, next) => {
     })
 })
 
-// will we need get by user or get one functions?
+// get by user
+issueRouter.get('/:userId', (req, res, next) => {
+    Issue.find( { user: req.auth._id }, (err, issues) => {
+        if(err) {
+            res.status(500)
+            return next(err)
+        }
+        return res.status(200).send(issues)
+    })
+})
 
 // Add Issue
 issueRouter.post("/", (req, res, next) => {
@@ -33,6 +42,7 @@ issueRouter.post("/", (req, res, next) => {
 
 
 // Delete Issue
+// Still sends "successfully deleted issue" if unauthorized user attempts delete
 issueRouter.delete('/:issueId', (req, res, next) => {
     Issue.findOneAndDelete(
         { _id: req.params.issueId, user: req.auth._id },
@@ -41,7 +51,7 @@ issueRouter.delete('/:issueId', (req, res, next) => {
                 res.status(500)
                 return next(err)
             }
-            return res.status(200).send(`Successfully deleted issue: ${deletedIssue.title}`)
+            return res.status(201).send(`Successfully deleted issue.`)
         }
 )
 })
@@ -141,10 +151,22 @@ issueRouter.put('/upvote/:issueId', (req, res, next)=>{
                 res.status(500)
                 return next(err)
             }
-            // console.log(issue.likedBy)
-            // console.log(req.auth._id.toString())
             const userIdMatch = (element) => element == req.auth._id
             const userPreviouslyLiked = issue.likedBy.findIndex(userIdMatch) > -1
+            const userPreviouslyDisliked = issue.dislikedBy.findIndex(userIdMatch) > -1
+            if (userPreviouslyDisliked) {
+                Issue.updateOne(
+                    { _id: req.params.issueId },
+                    { $pull: {dislikedBy: req.auth._id}},
+                    { new: true },
+                    (err, updatedDislike) => {
+                        if(err) {
+                            res.status(500)
+                            return next(err)
+                        }
+                    }
+                )
+            }
             // console.log(issue.likedBy.findIndex(userIdMatch))
             if (userPreviouslyLiked) {
                 Issue.updateOne(
@@ -199,6 +221,20 @@ issueRouter.put('/downvote/:issueId', (req, res, next) => {
             }
             const userIdMatch = (element) => element == req.auth._id
             const userPreviouslyDisliked = issue.dislikedBy.findIndex(userIdMatch) > -1
+            const userPreviouslyLiked = issue.likedBy.findIndex(userIdMatch) > -1
+            if (userPreviouslyLiked) {
+                Issue.updateOne(
+                    { _id: req.params.issueId },
+                    { $pull: {likedBy: req.auth._id}},
+                    { new: true },
+                    (err, updatedLike) => {
+                        if(err) {
+                            res.status(500)
+                            return next(err)
+                        }
+                    }
+                )
+            }
             if (userPreviouslyDisliked) {
                 Issue.updateOne(
                     { _id: req.params.issueId },

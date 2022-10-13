@@ -16,7 +16,7 @@ export default function Issue(props) {
     return (
         <div>
         <h2>{issue.title}</h2>
-        <h3>{issue.user}</h3>
+        <h3>{issue.description}</h3>
         <p>Score: {numberOfUpvotes - numberOfDownvotes}</p>
         <p>Upvotes: {numberOfUpvotes}</p>
         <p>Downvotes: {numberOfDownvotes}</p>
