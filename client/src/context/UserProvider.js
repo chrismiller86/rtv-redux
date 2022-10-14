@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from 'axios'
+import axios from 'axios';
+import { useHistory } from "react-router-dom"
 
 export const UserContext = React.createContext()
 
@@ -49,14 +50,12 @@ export default function UserProvider(props){
     }
 
     function logout(){
-        // remove items from local storage
         localStorage.removeItem("token")
         localStorage.removeItem("user")
         setUserState({
             user: {},
             token: ""
         })
-        // reset user State
     }
 
     function upvote(){

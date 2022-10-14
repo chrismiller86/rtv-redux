@@ -1,23 +1,31 @@
 import React from 'react'
-import { Routes, Route, Navigate, Link } from 'react-router-dom'
+import { Routes, Route, Navigate, Link, useNavigate } from 'react-router-dom'
 import Issues from './routes/Issues';
 import Profile from './routes/Profile';
 import Auth from './routes/Auth';
 import { UserContext } from './context/UserProvider';
 
 export default function App() {
-  const { token, logout, user } = React.useContext(UserContext)
+    let navigate = useNavigate();
+
+    
+    const { token, logout, user } = React.useContext(UserContext)
+    
+    function logoutReturnToAuth() {
+      navigate('/')
+      logout()
+    }
 
     return (
       <div>
         <h1>Online Debate Network</h1>
         <nav>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/issues">Issues</Link> |{" "}
-        <Link to="/profile">Profile</Link> |{" "}
+        <Link to="/">Home</Link>
+        {token && <> |{" "}<Link to="/issues">Issues</Link> |{" "} </>}
+        {token && <><Link to="/profile">Profile</Link> |{" "} </>}
         {user.username && 
           <>
-            <span>Logged in as {user.username}</span> <button onClick={logout}>Log Out</button>
+            <span>Logged in as {user.username}</span> <button onClick={logoutReturnToAuth}>Log Out</button>
           </>
         }
         

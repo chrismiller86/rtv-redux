@@ -7,11 +7,12 @@ export default function Issues() {
     
   const { issues, postIssue } = React.useContext(IssueContext)
   
+  const sortedIssues = issues.sort((b, a) => (a.likedBy.length - a.dislikedBy.length) - (b.likedBy.length - b.dislikedBy.length))
 
 
 
 
-  const issueDisplay = issues.map((issue, index) => {
+  const issueDisplay = sortedIssues.map((issue, index) => {
     // const numberOfUpvotes = issue.likedBy.length
     // const numberOfDownvotes = issue.dislikedBy.length
     return (
