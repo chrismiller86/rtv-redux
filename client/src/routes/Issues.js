@@ -12,7 +12,7 @@ export default function Issues() {
 
 
 
-  const issueDisplay = sortedIssues.map((issue, index) => {
+  const issueDisplay = issues.map((issue, index) => {
     // const numberOfUpvotes = issue.likedBy.length
     // const numberOfDownvotes = issue.dislikedBy.length
     return (
@@ -22,7 +22,10 @@ export default function Issues() {
   
   return (
       <main style={{ padding: "1rem 0" }}>
-        <h2>Issues</h2>
+        <div className="issues--header">
+          <h2>Issues</h2>
+          <button onClick={() => console.log(issues)}>issues</button>
+        </div>
         <PostIssueForm postIssue={postIssue} />
         {issueDisplay}
       </main>

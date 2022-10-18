@@ -1,0 +1,164 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: hsl(7, 23%, 79%) ;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+    margin: 30px 15px 0px;
+    font-size: 40px;
+    text-shadow: 0px 0px 5px white;
+}
+
+.auth{
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px black;
+    width: 300px;
+    height: 350px;
+    margin: 30px auto;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+}
+.auth--authForm h3, .auth--authForm input, .auth--authForm button {
+    margin: 5px 0
+}
+
+.auth--authForm input {
+    padding: 5px;
+    border-radius: 5px;
+}
+.auth--authForm h3 {
+    font-size: 25px;
+}
+nav button, .auth button {
+    padding: 8px;
+    margin: 8px;
+    border-radius: 5px;
+    border: none;
+    background-color: hsl(7, 23%, 85%);
+    color: black;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+nav {
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+    align-items: center;
+    box-shadow: 0 8px 6px -6px black;
+}
+
+.issue, .profile--welcome, .issues--header, .issue--postForm {
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px black;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+    max-width: 90%;
+}
+.issues--header {
+}
+.issues--header h2, .profile--welcome  h2{
+    margin: 0 auto;
+    font-size: 30px;
+    font-weight: 700;
+}
+.issue--content, .issue--scoring {
+    width: 100%;
+    margin: 20px auto;
+    padding: 10px;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: 0px 0px 9px black;
+}
+.issue--content {
+    background-color: hsl(203, 37%, 83%);
+}
+.issue--title {
+    font-size: 25px;
+    
+}
+.issue--scoring {
+    background-color: hsl(262, 15%, 75%);
+
+}
+.issue--scoring span{
+    margin: 3px 10px;
+    
+}
+.issue--voteBtn, .commentForm button, .issue--deleteBtn, .issue--submitBtn  {
+    margin: 10px 7px 7px 7px;
+    padding: 8px;
+    width: 80px;
+    border: none;
+    border-radius: 5px;
+}
+.issue--deleteBtn {
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+}
+
+.commentForm  {
+    margin: 20px;
+    height: 200px
+}
+.commentForm textarea {
+    height: 50%;
+}
+.commentForm button, .issue--deleteBtn, .issue--submitBtn  {
+    background-color: lightgray;
+    font-weight: 700;
+}
+
+@media only screen and (min-width: 600px) {
+    /* .issue {
+        max-width: 500px;
+    } */
+    h1 {
+        font-size: 45px;
+    }
+}
+@media only screen and (min-width: 800px) {
+    /* .issue {
+        max-width: 700px;
+    } */
+    h1 {
+        font-size: 50px;
+    }
+    .issue--title {
+        font-size: 35px;
+    }
+    .issueGridContainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media only screen and (min-width: 1000px) {
+    /* .issue {
+        max-width: 800px;
+    } */
+    h1 {
+        font-size: 55px;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    /* .issue {
+        max-width: 95%;
+    } */
+    h1 {
+        font-size: 60px;
+    }
+}

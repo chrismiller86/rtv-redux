@@ -8,7 +8,7 @@ export default function Auth() {
     const [inputs, setInputs] = useState(initInputs)
     const [alreadyMemberToggle, setAlreadyMemberToggle] = React.useState(false)
 
-    const { signup, login } = React.useContext(UserContext)
+    const { signup, login, errMsg, setUserState } = React.useContext(UserContext)
 
     function handleChange(e) {
         const {name, value} = e.target
@@ -27,12 +27,19 @@ export default function Auth() {
         e.preventDefault()
         login(inputs)
     }
+    
+    function handleToggleAlreadyMember(){
+        setAlreadyMemberToggle(prev => !prev)
+        setUserState(prevState => ({
+            ...prevState,
+            errMsg: ""
+        }))
 
+    }
 
 
     return (
-        <>
-            <h1>This is the auth componenet which contains AuthForm </h1>
+        <div className='auth'>
             {!alreadyMemberToggle ? 
                 <>
                     <AuthForm 
@@ -41,7 +48,10 @@ export default function Auth() {
                         inputs={inputs}
                         handleSubmit={handleSignup}
                     />
-                    <button onClick={()=>setAlreadyMemberToggle(prev => !prev)}>Already a member?</button>
+                    <div className='auth--errAndToggle'>
+                        <button onClick={handleToggleAlreadyMember}>Already a member?</button>
+                        <p>{errMsg}</p>
+                    </div>
                 </>
                 :
                 <>
@@ -52,10 +62,13 @@ export default function Auth() {
                         handleSubmit={handleLogin}
 
                     />
-                    <button onClick={()=>setAlreadyMemberToggle(prev => !prev)}>Not yet a member?</button>
+                    <div className='auth--errAndToggle'>
+                        <button onClick={handleToggleAlreadyMember}>Not yet a member?</button>
+                        <p>{errMsg}</p>
+                    </div>
                 </>
             }
             
-        </>
+        </div>
     )
 }

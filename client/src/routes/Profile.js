@@ -6,29 +6,15 @@ import { IssueContext } from "../context/IssueProvider";
 
 export default function Profile() {
 
-  // const userAxios = axios.create()
-
-  // const [userIssues, setUserIssues] = React.useState([])
-
-  // userAxios.interceptors.request.use(config => {
-  //   const token = localStorage.getItem("token")
-  //   config.headers.Authorization = `Bearer ${token}`
-  //   return config
-  // })
-
   const { user } = React.useContext(UserContext)
   const { getUserIssues, userIssues} = React.useContext(IssueContext)
-  // console.log(user)
-
-  // function getUserIssues(userId) {
-  //   userAxios.get(`/api/issues/${user._id}`)
-  //     .then(res => setUserIssues(res.data))
-  //     .catch(err => console.log(err))
-  // }
 
   React.useEffect(()=> {
     getUserIssues(user._id)
   }, [user])
+  function capitalizeName(string) {
+    return string[0].toUpperCase() + string.substring(1)
+  }
 
   const issueDisplay = userIssues.map((issue, index) => {
     return (
@@ -40,8 +26,9 @@ export default function Profile() {
 
       
       <main style={{ padding: "1rem 0" }}>
-        {/* <button onClick={()=> console.log(user)}>userstate</button> */}
-        <h2>Welcome {user.username}</h2>
+        <div className="profile--welcome">
+          <h2>Welcome {capitalizeName(user.username)}</h2>
+        </div>
         {issueDisplay}
       </main>
     );

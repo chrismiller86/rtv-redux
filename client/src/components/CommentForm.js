@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function CommentForm(props) {
-    const { postComment, issue, user, setCommentToggle } = props
+    const { postComment, issue, user } = props
 
     const initInputs = {commentText: "", user: user._id, issue: issue._id}
     
@@ -14,18 +14,20 @@ export default function CommentForm(props) {
             [name]: value
         }))
     }
+    function capitalizeName(string) {
+        return string[0].toUpperCase() + string.substring(1)
+    }
 
     function handleCommentSubmission(e) {
         e.preventDefault()
-        const inputsWithUsername = {...inputs, commentText: inputs.commentText + ` - ${user.username}`}
+        const inputsWithUsername = {...inputs, commentText: inputs.commentText + ` - ${capitalizeName(user.username)}`}
         postComment(issue._id, inputsWithUsername)
-        setInputs(initInputs)
-        setCommentToggle(false)
+        setInputs(prevInputs => ({...prevInputs, commentText: ""}))
     }
 
     return (
-        <form onSubmit={handleCommentSubmission}>
-            <textarea name="commentText" onChange={handleChange}/>
+        <form className="commentForm" onSubmit={handleCommentSubmission}>
+            <textarea name="commentText" value={inputs.commentText} onChange={handleChange}/>
             <br />
             <button>Submit</button>
         </form>

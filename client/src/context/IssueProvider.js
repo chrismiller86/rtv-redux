@@ -28,7 +28,6 @@ export default function IssueProvider(props){
 
 
 
-    // does this need a dependency to fix auth to issue problem?    
     React.useEffect(()=> {
         getIssues()
     }, [])
@@ -58,10 +57,12 @@ export default function IssueProvider(props){
             .catch(err => console.log(err))
     }
 
-    // Could change behavior to appear at the top until refresh or next getIssues
+    // new posts steal comments
     function postIssue(issueObject) {
         userAxios.post('/api/issues', issueObject)
-            .then(res => getIssues())
+            .then(res => {
+                setIssues(prevIssues => ([...prevIssues, res.data]))
+            })
             .catch(err => console.log(err))
     }
 

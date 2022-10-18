@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from 'axios';
-import { useHistory } from "react-router-dom"
 
 export const UserContext = React.createContext()
 
@@ -16,6 +15,7 @@ export default function UserProvider(props){
     const initState = {
         user: JSON.parse(localStorage.getItem('user')) || {},
         token: localStorage.getItem('token') || "",
+        errMsg: ""
     }
 
     const [userState, setUserState] = useState(initState)
@@ -32,7 +32,7 @@ export default function UserProvider(props){
                     token
                 }))                
             })
-            .catch(err => console.log(err.response.data.errMsg))
+            .catch(err => handleAuthError(err.response.data.errMsg))
     }
 
     function login(credentials){
@@ -47,6 +47,7 @@ export default function UserProvider(props){
                     token
                 }))
             })
+            .catch(err => handleAuthError(err.response.data.errMsg))
     }
 
     function logout(){
@@ -56,6 +57,13 @@ export default function UserProvider(props){
             user: {},
             token: ""
         })
+    }
+
+    function handleAuthError(errMsg) {
+        setUserState(prevState => ({
+            ...prevState,
+            errMsg
+        }))
     }
 
     function upvote(){
@@ -74,7 +82,8 @@ export default function UserProvider(props){
                 login,
                 logout,
                 upvote,
-                downvote
+                downvote,
+                setUserState
             }}
         >
             {props.children}
