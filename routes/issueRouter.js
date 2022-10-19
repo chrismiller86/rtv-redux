@@ -79,6 +79,17 @@ issueRouter.put("/:issueId", (req, res, next) => {
 
 // COMMENTS HANDLING
 
+// Get all comments
+issueRouter.get('/getcomments', (req, res, next) => {
+    Comment.find((err, comments) => {
+        if(err) {
+            res.status(500)
+            return next(err)
+        }
+        res.status(200).send(comments)
+    })
+})
+
 // Get all comments on an issue
 issueRouter.get('/getcomments/:issueId', (req, res, next) => {
     Comment.find(

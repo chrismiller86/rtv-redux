@@ -12,7 +12,7 @@ export default function Issues() {
 
 
 
-  const issueDisplay = issues.map((issue, index) => {
+  const issueDisplay = sortedIssues.map((issue, index) => {
     // const numberOfUpvotes = issue.likedBy.length
     // const numberOfDownvotes = issue.dislikedBy.length
     return (

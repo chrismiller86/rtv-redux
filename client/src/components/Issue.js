@@ -18,7 +18,9 @@ export default function Issue(props) {
         return config
     })
 
+    // in issueprovider
     const [comments, setComments] = React.useState([])
+    // in issueprovider
     function getComments(id) {
       userAxios.get(`/api/issues/getcomments/${id}`)
           .then(res => setComments(res.data))
