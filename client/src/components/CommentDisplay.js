@@ -4,7 +4,8 @@ import { IssueContext } from "../context/IssueProvider";
 
 export default function CommentDisplay(props) {
 
-    const { issueId} = props
+    // const { comments } = React.useContext(IssueContext)
+    const { issueId, } = props
     const userAxios = axios.create()
     userAxios.interceptors.request.use(config => {
         const token = localStorage.getItem("token")

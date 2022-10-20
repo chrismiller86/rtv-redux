@@ -5,7 +5,7 @@ import PostIssueForm from "../components/PostIssueForm";
 
 export default function Issues() {
     
-  const { issues, postIssue } = React.useContext(IssueContext)
+  const { issues, postIssue, comments } = React.useContext(IssueContext)
   
   const sortedIssues = issues.sort((b, a) => (a.likedBy.length - a.dislikedBy.length) - (b.likedBy.length - b.dislikedBy.length))
 
@@ -25,6 +25,7 @@ export default function Issues() {
         <div className="issues--header">
           <h2>Issues</h2>
           <button onClick={() => console.log(issues)}>issues</button>
+          <button onClick={() => console.log(comments)}>comments</button>
         </div>
         <PostIssueForm postIssue={postIssue} />
         {issueDisplay}

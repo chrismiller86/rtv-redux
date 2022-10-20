@@ -19,19 +19,19 @@ export default function Issue(props) {
     })
 
     // in issueprovider
-    const [comments, setComments] = React.useState([])
+    // const [comments, setComments] = React.useState([])
     // in issueprovider
-    function getComments(id) {
-      userAxios.get(`/api/issues/getcomments/${id}`)
-          .then(res => setComments(res.data))
-          .catch(err => console.log(err))
-    } 
-    function postComment(id, commentObject) {
-      userAxios.post(`/api/issues/addcomment/${id}`, commentObject)
-          // .then(res => setComments(prevComments => [...prevComments, commentObject]))
-          .then(res => setComments(prevComments => [...prevComments, commentObject]))
-          .catch(err => console.log(err))
-  }
+    // function getComments(id) {
+    //   userAxios.get(`/api/issues/getcomments/${id}`)
+    //       .then(res => setComments(res.data))
+    //       .catch(err => console.log(err))
+    // } 
+  //   function postComment(id, commentObject) {
+  //     userAxios.post(`/api/issues/addcomment/${id}`, commentObject)
+  //         // .then(res => setComments(prevComments => [...prevComments, commentObject]))
+  //         .then(res => setComments(prevComments => [...prevComments, commentObject]))
+  //         .catch(err => console.log(err))
+  // }
 
 
 
@@ -64,9 +64,9 @@ export default function Issue(props) {
           
           <CommentDisplay 
             issueId={issue._id} 
-            getComments={getComments}
-            comments={comments}
-            setComments={setComments}
+            // getComments={getComments}
+            // comments={comments}
+            // setComments={setComments}
           />
 
         </div>
@@ -77,7 +77,7 @@ export default function Issue(props) {
             <h2>Submit a Comment</h2>
             <CommentForm 
               issue={issue} 
-              postComment={postComment} 
+              // postComment={postComment} 
               user={user} 
             />
           </>

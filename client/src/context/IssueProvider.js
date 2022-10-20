@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from 'axios'
-import { UserContext } from "./UserProvider";
 
 export const IssueContext = React.createContext()
 
@@ -61,10 +60,13 @@ export default function IssueProvider(props){
     }, [])
     React.useEffect(()=> {
         getComments()
-    })
+    }, [])
 
     React.useEffect(()=> {
+        console.log(comments)
         setIssues(tempIssues.map(issue => {
+            // console.log('hi')
+            // console.log(comments)
             let returnIssue = issue
             returnIssue.commentArray = comments.filter(comment => comment.issue === issue._id)
             return returnIssue
@@ -89,13 +91,6 @@ export default function IssueProvider(props){
     function postComment(id, commentText) {
         userAxios.post(`/api/issues/addcomment/${id}`, commentText)
             .then(res => console.log(`hi`))
-            .catch(err => console.log(err))
-    }
-
-    // no
-    function getComments(id) {
-        userAxios.get(`/api/issues/getcomments/${id}`)
-            .then(res => console.log('hi'))
             .catch(err => console.log(err))
     }
 
@@ -131,9 +126,9 @@ export default function IssueProvider(props){
                 getComments,
                 deleteIssue,
                 getUserIssues,
-                deleteIssue,
                 postIssue,
-                userIssues
+                userIssues,
+                comments
             }}
         >
             {props.children}
